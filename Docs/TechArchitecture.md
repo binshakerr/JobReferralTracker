@@ -123,13 +123,20 @@ JobReferralTracker/
 │   ├── Navigation/
 │   │   ├── AppRoute.swift
 │   │   ├── Router.swift
+│   │   ├── MainTabView.swift              # TabView, one NavigationStack + Router per tab, RouteDestination
 │   │   └── ViewModelFactory.swift         # protocol
 │   ├── Common/
 │   │   ├── LoadState.swift
-│   │   ├── ReferralStatus+UI.swift        # title, color, SF Symbol
+│   │   ├── Error+UserMessage.swift
+│   │   ├── ReferralStatus+UI.swift        # title, color, SF Symbol; ReferralFilter/StatusBreakdown text
 │   │   ├── StatusBadge.swift
 │   │   ├── StatusBreakdownBar.swift
+│   │   ├── StatusCountGrid.swift
+│   │   ├── ReferralRow.swift
+│   │   ├── FormTextField.swift            # text field + inline validation message
+│   │   ├── CompactLabelStyle.swift
 │   │   ├── EmptyStateView.swift
+│   │   ├── View+Alerts.swift              # errorAlert, Binding(isPresent:)
 │   │   └── ValidationIssue+Message.swift
 │   └── Features/
 │       ├── JobList/        JobListView, JobSummaryCard, JobListViewModel
@@ -137,7 +144,7 @@ JobReferralTracker/
 │       ├── JobDetail/      JobDetailView, JobDetailViewModel
 │       ├── ReferralForm/   ReferralFormView, ReferralFormViewModel
 │       ├── ReferralDetail/ ReferralDetailView, ReferralDetailViewModel
-│       └── Analytics/      AnalyticsView, JobBreakdownRow, AllReferralsList, AnalyticsViewModel
+│       └── Analytics/      AnalyticsView, JobBreakdownRow, StatusChart, AnalyticsViewModel
 │
 ├── Resources/
 │   └── Assets.xcassets
@@ -707,14 +714,15 @@ enum AppRoute: Hashable {
 final class Router: ObservableObject {
     @Published var path: [AppRoute] = []
     func push(_ route: AppRoute) { path.append(route) }
-    func pop() { _ = path.popLast() }
-    func popToRoot() { path.removeAll() }
+    /// Removes `route` and everything above it — used when the shown item was deleted.
+    func dismiss(_ route: AppRoute)
+    func contains(_ route: AppRoute) -> Bool
 }
 ```
 
 - `RootView` shows a `TabView` with **Jobs** and **Analytics** tabs. Each tab has its own `@StateObject Router` and `NavigationStack(path: $router.path)`, and passes the router down with `.environmentObject(router)`.
 - One `.navigationDestination(for: AppRoute.self)` at each stack root resolves routes to screens through the `ViewModelFactory`.
-- Routes carry **IDs, not models**, so a destination always shows live data and handles deletion (the ViewModel sets `didDelete`, and the view calls `router.pop()`).
+- Routes carry **IDs, not models**, so a destination always shows live data and handles deletion (the ViewModel sets `isDeleted`, and the view calls `router.dismiss(route)`, which also works when the screen is not on top of the stack).
 - Sheets are driven by a screen-local `Identifiable` enum, e.g. `enum JobDetailSheet: Identifiable { case editJob(Job), addReferral, editReferral(Referral) }`, with `.sheet(item:)`. Each sheet wraps its form in its own `NavigationStack` for the Cancel/Save toolbar.
 
 ### 6.4 Screen Map
