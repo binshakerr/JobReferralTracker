@@ -4,7 +4,7 @@ An iOS app for job seekers to track the jobs they are pursuing and the people wh
 
 Everything is stored on the device with Core Data. There are no accounts, no servers and no network calls.
 
-> **Status:** v1 features are implemented according to [Docs/PRD.md](Docs/PRD.md). Test coverage is partial (domain validation and job creation).
+> **Status:** v1 features are implemented according to [Docs/PRD.md](Docs/PRD.md), with 111 unit tests covering the Domain, Data (in-memory Core Data), ViewModel and App layers.
 
 ## Features
 

@@ -3,10 +3,13 @@ import Foundation
 
 /// Fake storage that honors the same contracts as the Core Data repositories:
 /// sort orders, not-found errors, cascade delete and per-job email lookup.
+/// Reads and writes can be made to fail to exercise error paths.
 actor InMemoryRepository: JobRepository, ReferralRepository {
     private(set) var jobs: [UUID: Job] = [:]
     private(set) var referrals: [UUID: Referral] = [:]
     private let onChange: @Sendable () -> Void
+    private var readError: Error?
+    private var writeError: Error?
 
     init(jobs: [Job] = [], referrals: [Referral] = [], onChange: @escaping @Sendable () -> Void = {}) {
         self.jobs = Dictionary(uniqueKeysWithValues: jobs.map { ($0.id, $0) })
@@ -14,10 +17,17 @@ actor InMemoryRepository: JobRepository, ReferralRepository {
         self.onChange = onChange
     }
 
+    func failReads(with error: Error?) { readError = error }
+    func failWrites(with error: Error?) { writeError = error }
+
+    private func checkRead() throws { if let readError { throw readError } }
+    private func checkWrite() throws { if let writeError { throw writeError } }
+
     // MARK: JobRepository
 
     func fetchJobs() async throws -> [Job] {
-        jobs.values.sorted { $0.createdAt > $1.createdAt }
+        try checkRead()
+        return jobs.values.sorted { $0.createdAt > $1.createdAt }
     }
 
     func fetchJobSummaries() async throws -> [JobSummary] {
@@ -26,20 +36,26 @@ actor InMemoryRepository: JobRepository, ReferralRepository {
         }
     }
 
-    func fetchJob(id: UUID) async throws -> Job? { jobs[id] }
+    func fetchJob(id: UUID) async throws -> Job? {
+        try checkRead()
+        return jobs[id]
+    }
 
     func create(_ job: Job) async throws {
+        try checkWrite()
         jobs[job.id] = job
         onChange()
     }
 
     func update(_ job: Job) async throws {
+        try checkWrite()
         guard jobs[job.id] != nil else { throw DomainError.jobNotFound(id: job.id) }
         jobs[job.id] = job
         onChange()
     }
 
     func deleteJob(id: UUID) async throws {
+        try checkWrite()
         jobs[id] = nil
         referrals = referrals.filter { $0.value.jobID != id }
         onChange()
@@ -48,42 +64,52 @@ actor InMemoryRepository: JobRepository, ReferralRepository {
     // MARK: ReferralRepository
 
     func fetchReferrals(jobID: UUID) async throws -> [Referral] {
-        referrals.values.filter { $0.jobID == jobID }.sorted { $0.updatedAt > $1.updatedAt }
+        try checkRead()
+        return referrals.values.filter { $0.jobID == jobID }.sorted { $0.updatedAt > $1.updatedAt }
     }
 
     func fetchAllReferrals() async throws -> [Referral] {
-        referrals.values.sorted { $0.updatedAt > $1.updatedAt }
+        try checkRead()
+        return referrals.values.sorted { $0.updatedAt > $1.updatedAt }
     }
 
     func fetchAllReferralItems() async throws -> [ReferralListItem] {
         try await fetchAllReferrals().compactMap(item(for:))
     }
 
-    func fetchReferral(id: UUID) async throws -> Referral? { referrals[id] }
+    func fetchReferral(id: UUID) async throws -> Referral? {
+        try checkRead()
+        return referrals[id]
+    }
 
     func fetchReferralItem(id: UUID) async throws -> ReferralListItem? {
-        referrals[id].flatMap(item(for:))
+        try checkRead()
+        return referrals[id].flatMap(item(for:))
     }
 
     func emailExists(_ email: String, jobID: UUID, excludingReferralID: UUID?) async throws -> Bool {
-        referrals.values.contains {
+        try checkRead()
+        return referrals.values.contains {
             $0.jobID == jobID && $0.email.lowercased() == email.lowercased() && $0.id != excludingReferralID
         }
     }
 
     func create(_ referral: Referral) async throws {
+        try checkWrite()
         guard jobs[referral.jobID] != nil else { throw DomainError.jobNotFound(id: referral.jobID) }
         referrals[referral.id] = referral
         onChange()
     }
 
     func update(_ referral: Referral) async throws {
+        try checkWrite()
         guard referrals[referral.id] != nil else { throw DomainError.referralNotFound(id: referral.id) }
         referrals[referral.id] = referral
         onChange()
     }
 
     func deleteReferral(id: UUID) async throws {
+        try checkWrite()
         referrals[id] = nil
         onChange()
     }

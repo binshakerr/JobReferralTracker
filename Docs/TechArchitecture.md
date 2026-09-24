@@ -153,10 +153,14 @@ JobReferralTracker/
     └── PreviewData.swift                  # sample jobs/referrals, AppContainer.preview()
 
 JobReferralTrackerTests/
-├── Domain/        JobValidatorTests, ReferralValidatorTests, JobUseCaseTests
-├── Data/          CoreDataJobRepositoryTests, CoreDataReferralRepositoryTests
-├── Presentation/  JobFormViewModelTests, ReferralFormViewModelTests, AnalyticsViewModelTests
-└── TestDoubles/   InMemoryRepository, Fixtures (dates, UUIDs, SequentialIDs)
+├── Domain/        JobValidatorTests, ReferralValidatorTests, JobUseCaseTests, ReferralUseCaseTests,
+│                  ReferralAnalyticsTests (calculator + filter), LiveQueryTests, ObserveUseCaseTests
+├── Data/          CoreDataJobRepositoryTests, CoreDataReferralRepositoryTests, CoreDataChangeObserverTests
+├── Presentation/  JobFormViewModelTests, ReferralFormViewModelTests, ScreenViewModelTests
+│                  (list, detail, analytics, formatting), RouterTests
+├── App/           AppBootstrapperTests
+└── TestDoubles/   InMemoryRepository (with read/write failure injection), ManualChangeObserver,
+                   TestEnvironment (real AppContainer over fakes), AsyncTestHelpers, Fixtures
 ```
 
 ## 4. Domain Layer

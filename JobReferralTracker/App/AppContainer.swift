@@ -1,6 +1,7 @@
 import Foundation
 
 /// Composition root: the only place that knows the concrete Data-layer types.
+/// Tests use the repository-based initializer with in-memory fakes.
 /// Created once by `AppBootstrapper` and passed down as a `ViewModelFactory`.
 @MainActor
 final class AppContainer {
@@ -11,15 +12,32 @@ final class AppContainer {
     private let makeID: IDGenerator
 
     init(
+        jobRepository: JobRepository,
+        referralRepository: ReferralRepository,
+        changeObserver: DataChangeObserving,
+        now: @escaping DateProvider = { Date() },
+        makeID: @escaping IDGenerator = { UUID() }
+    ) {
+        self.jobRepository = jobRepository
+        self.referralRepository = referralRepository
+        liveQuery = LiveQuery(changeObserver: changeObserver)
+        self.now = now
+        self.makeID = makeID
+    }
+
+    /// Production wiring backed by Core Data.
+    convenience init(
         stack: CoreDataStack,
         now: @escaping DateProvider = { Date() },
         makeID: @escaping IDGenerator = { UUID() }
     ) {
-        jobRepository = CoreDataJobRepository(stack: stack)
-        referralRepository = CoreDataReferralRepository(stack: stack)
-        liveQuery = LiveQuery(changeObserver: CoreDataChangeObserver(stack: stack))
-        self.now = now
-        self.makeID = makeID
+        self.init(
+            jobRepository: CoreDataJobRepository(stack: stack),
+            referralRepository: CoreDataReferralRepository(stack: stack),
+            changeObserver: CoreDataChangeObserver(stack: stack),
+            now: now,
+            makeID: makeID
+        )
     }
 
     // MARK: - Use cases (cheap value types, built on demand)

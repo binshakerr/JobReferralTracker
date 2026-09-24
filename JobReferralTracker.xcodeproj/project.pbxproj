@@ -18,17 +18,21 @@
 		175C70A7D2F62E9A67D27E9E /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F830DC7335858680802B3A4 /* PreviewData.swift */; };
 		1943212B9D9C584994F84655 /* ReferralRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C78C830DD9AEA80F519979 /* ReferralRepository.swift */; };
 		1A810BDC7B1533AD56ABE19D /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7D1EF96585DF833364C3F2 /* RootView.swift */; };
+		1AC37640A921C11046410A41 /* RouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4FC37F436F8E7F29FEC437 /* RouterTests.swift */; };
 		1B85D3E8B60D6FE73F960C2A /* DomainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0512802363888A9EBBD657 /* DomainError.swift */; };
+		1E5FF968FF082C901CCEE73A /* AppBootstrapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472B5F40277F49434BFF3C99 /* AppBootstrapperTests.swift */; };
 		20F0F68C191660427EE51DF8 /* JobDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBE7934A47D54EDCD2F1838 /* JobDetailView.swift */; };
 		244A81AA17956DD9B8FE2B74 /* JobEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1BA512D509B100589839B8 /* JobEntity.swift */; };
 		248A43D2A1F1FBED1EB79C5B /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444E6EC0C3718515287BE03C /* Dependencies.swift */; };
 		26788D7FA41BD173D6804E61 /* ReferralDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8E1D0513625C750EFD8D5 /* ReferralDetailViewModel.swift */; };
 		3084C6B566598CCFC5066063 /* Referral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0565CE072C686C5BB56AEC8B /* Referral.swift */; };
+		315E0832FFB608405677AF1D /* CoreDataChangeObserverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB44400A1ECEDC0F1CF67FC /* CoreDataChangeObserverTests.swift */; };
 		37D05CF46EF955E0BC22F9FC /* ReferralFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582CC8F3E0F08BF48080213A /* ReferralFormViewModel.swift */; };
 		3AE0CFAAC041450B074D3405 /* ObserveReferralUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB20EB62A0DD532F70B916B1 /* ObserveReferralUseCase.swift */; };
 		3B3A9CE6F125961B77E9F994 /* StatusBreakdownBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A454B47EABC8EB3F503F0DBC /* StatusBreakdownBar.swift */; };
 		3F1641C19070B6A030E629D4 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671CB4B0A890CDEB67324656 /* AppRoute.swift */; };
 		42ACFDFD12EE3DD693163EF7 /* ValidationIssue+Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC99C0985138513492E25243 /* ValidationIssue+Message.swift */; };
+		44C79E89A924255F38C4B268 /* ObserveUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54A2DE713F6BE85C1972192 /* ObserveUseCaseTests.swift */; };
 		44D9EB35BD9F1EDF4E907CE7 /* Error+UserMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB196B4937E05FDDABA41C9 /* Error+UserMessage.swift */; };
 		472541FF178C8ECC8931C5C8 /* JobValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8768F44A8BD3D5F1CAEAA054 /* JobValidatorTests.swift */; };
 		492F61955A13DAB3B7922D15 /* JobReferralTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A45206EC872CF37622A0194C /* JobReferralTracker.xcdatamodeld */; };
@@ -42,13 +46,19 @@
 		63A6D43E133B8C8CF791BAFF /* ReferralFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1261E5660B33BBE8A75221 /* ReferralFilter.swift */; };
 		63C5727D9C1427254C1E67B5 /* CreateJobUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ECB783DF9A904BCCB4AE0C /* CreateJobUseCase.swift */; };
 		63D15ADAC8BB82A05F20677E /* ReferralValidator+Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D4CCF172762B70509D15B5 /* ReferralValidator+Repository.swift */; };
+		675D362032EDA568EE1A6E4B /* ManualChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE6ED222E1003A9CF1C61 /* ManualChangeObserver.swift */; };
 		68D8B8D62BD4F44971B462E2 /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE37710856ED2D9D346F63F9 /* AppContainer.swift */; };
 		6C43C7C750E714157ED07B96 /* ReferralDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74BFD6A88DD3830E74937F /* ReferralDraft.swift */; };
 		6C4F54CE1BF3E979D3D40EB4 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B679E9CE51A9A72E0A79CC59 /* FormTextField.swift */; };
+		6EFDBA0F8EBA6EB7E42DAF3B /* TestEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6E56DB8D963B8AD907A93F /* TestEnvironment.swift */; };
+		6FAFA06E0255198F5F5DD1E8 /* ReferralFormViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF39663A965C2C16EFF9BD97 /* ReferralFormViewModelTests.swift */; };
 		78A6F92DA685E9C6B51CFF2F /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE4086E30356B965EB83A6 /* CoreDataStack.swift */; };
+		7B010DC579C866856385B978 /* CoreDataReferralRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC952CECC99A7D49E5B3EFD /* CoreDataReferralRepositoryTests.swift */; };
 		7B5E9FD12D3DA5F877A1C09B /* StatusChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469D12EE6FEC495EDE236EB1 /* StatusChart.swift */; };
 		7B6FEE2AEB44747E7795A198 /* AnalyticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5267301EEE25E4B5D15561C /* AnalyticsViewModel.swift */; };
+		7C3704374F2BB5B66508088D /* CoreDataJobRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBE311864A522F82DACEA4 /* CoreDataJobRepositoryTests.swift */; };
 		7E216D166028EC6393675289 /* ValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD7C9F3791439DCA54816D7 /* ValidationResult.swift */; };
+		85A7100346A46BD7D62E0870 /* ReferralUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C7F8CA9B14221426A8A60F /* ReferralUseCaseTests.swift */; };
 		85B243ADC387E28C4CE976C4 /* JobListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1988EFC2757B3818E06699F4 /* JobListViewModel.swift */; };
 		897F0B44966706B690882BF6 /* JobListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFA18D06C951C94901A0DB2 /* JobListView.swift */; };
 		92E55DFB451721CB7602698A /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5C63FE4DB049F3EF90A7CB /* Router.swift */; };
@@ -60,6 +70,7 @@
 		A7460E1EDDBE7407B8DC3365 /* JobDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357AB0D12213C9E2C7C5CA51 /* JobDraft.swift */; };
 		A762E2CBCD359152241B0BC3 /* JobReferralTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB649E2CD802FA8886445F20 /* JobReferralTrackerApp.swift */; };
 		A863E37116C6827E0710FCFD /* StatusCountGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672871D2A3C366A699CD8297 /* StatusCountGrid.swift */; };
+		A8D4092C5C777AA2171B41ED /* JobFormViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1891B5FE3D98DFAF5A7D9 /* JobFormViewModelTests.swift */; };
 		AD92650FD97B4CA7AB703AD4 /* ReferralListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7950433D466A003C9E858 /* ReferralListItem.swift */; };
 		ADD2B3328FA7D71D4D6F268B /* CoreDataJobRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B76899B647030027F65295 /* CoreDataJobRepository.swift */; };
 		B23B25DD79A6CE5AC8A61E01 /* UpdateJobUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC5E10F22836D65253DD419 /* UpdateJobUseCase.swift */; };
@@ -86,15 +97,19 @@
 		E175128AE881548EF7ED305A /* CompactLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9E30DFB0662DA46F72AED0 /* CompactLabelStyle.swift */; };
 		E67C9D2732B5C50889ED773F /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504878EAFB059A2D840BBE3 /* Fixtures.swift */; };
 		E831A3CD99FCFA905B371DDC /* ReferralValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEBC857E68E013E39154503 /* ReferralValidator.swift */; };
+		E8BF9BB1190624DD17B3357B /* LiveQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA148BBE779AB30C50A5EE88 /* LiveQueryTests.swift */; };
+		E9AEFB191B84C5FA8FC9CEB2 /* ScreenViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52CA60EF9B32F433CEE39A1 /* ScreenViewModelTests.swift */; };
 		EB85788DA294273788138008 /* JobDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F83138C646721400A8553E /* JobDetailViewModel.swift */; };
 		ED4B8E9E043643AF6B287F63 /* ReferralFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121B0628ABEAFC2AB7958343 /* ReferralFormView.swift */; };
 		ED74DF47B19ADDD99C3BBA52 /* ReferralEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA235B0DD068A5A45DAC9669 /* ReferralEntity+Mapping.swift */; };
 		EE3B17F285C2C3146179F4A4 /* ObserveReferralAnalyticsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10673E0DA04019560477435E /* ObserveReferralAnalyticsUseCase.swift */; };
 		EE45670149FC59FAA6131EAB /* TextRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A3745E92B980E5721BFCA1 /* TextRules.swift */; };
 		EF0424AB986A1092BA439F77 /* UpdateReferralStatusUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3C5956D0CC7427D8AD2D7 /* UpdateReferralStatusUseCase.swift */; };
+		F1D404ACA3D8C70E9032FE6A /* AsyncTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C090122AC28C9AE2E6A3FB5 /* AsyncTestHelpers.swift */; };
 		F644BCB2429EF14A3679E87B /* ReferralDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138D27FADE72082DE2437A7 /* ReferralDetailView.swift */; };
 		FA9A7E62B2264D9444975358 /* ObserveAllReferralsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E9D2C76371935346DE827D /* ObserveAllReferralsUseCase.swift */; };
 		FCC909D19C75EEF00A318AF5 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDF3DBC213F12F3E633AB97 /* Job.swift */; };
+		FD13ECB92B3CBDC366FED0B3 /* ReferralAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1801273C44C09BC1B4693C9 /* ReferralAnalyticsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +123,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04E1891B5FE3D98DFAF5A7D9 /* JobFormViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobFormViewModelTests.swift; sourceTree = "<group>"; };
 		05223749D691D724A1001F57 /* JobReferralTracker.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = JobReferralTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0565CE072C686C5BB56AEC8B /* Referral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Referral.swift; sourceTree = "<group>"; };
 		0A9E30DFB0662DA46F72AED0 /* CompactLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactLabelStyle.swift; sourceTree = "<group>"; };
@@ -135,6 +151,7 @@
 		444E6EC0C3718515287BE03C /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 		466ADEDAB38F6711FC2AB8DE /* ReferralAnalyticsCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferralAnalyticsCalculator.swift; sourceTree = "<group>"; };
 		469D12EE6FEC495EDE236EB1 /* StatusChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusChart.swift; sourceTree = "<group>"; };
+		472B5F40277F49434BFF3C99 /* AppBootstrapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBootstrapperTests.swift; sourceTree = "<group>"; };
 		4BC5E10F22836D65253DD419 /* UpdateJobUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateJobUseCase.swift; sourceTree = "<group>"; };
 		50D3C5956D0CC7427D8AD2D7 /* UpdateReferralStatusUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateReferralStatusUseCase.swift; sourceTree = "<group>"; };
 		53B76899B647030027F65295 /* CoreDataJobRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataJobRepository.swift; sourceTree = "<group>"; };
@@ -150,15 +167,19 @@
 		6C1BA512D509B100589839B8 /* JobEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobEntity.swift; sourceTree = "<group>"; };
 		6DE6AC767261469538504396 /* JobReferralTrackerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = JobReferralTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7359A23D82737745F66E7DCF /* View+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Alerts.swift"; sourceTree = "<group>"; };
+		7C090122AC28C9AE2E6A3FB5 /* AsyncTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncTestHelpers.swift; sourceTree = "<group>"; };
 		7C9A7F799C01E77D01BFB648 /* JobUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobUseCaseTests.swift; sourceTree = "<group>"; };
 		7DE8E1D0513625C750EFD8D5 /* ReferralDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferralDetailViewModel.swift; sourceTree = "<group>"; };
 		7FB196B4937E05FDDABA41C9 /* Error+UserMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+UserMessage.swift"; sourceTree = "<group>"; };
 		806BDE3E25E28C009ADD9F12 /* ReferralValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferralValidatorTests.swift; sourceTree = "<group>"; };
+		84DBE311864A522F82DACEA4 /* CoreDataJobRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataJobRepositoryTests.swift; sourceTree = "<group>"; };
 		86F185239D82A2C7FCBAA9BB /* JobSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobSummary.swift; sourceTree = "<group>"; };
 		8768F44A8BD3D5F1CAEAA054 /* JobValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobValidatorTests.swift; sourceTree = "<group>"; };
 		8913713BC49C3D857B0F3034 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		8A2DE6ED222E1003A9CF1C61 /* ManualChangeObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualChangeObserver.swift; sourceTree = "<group>"; };
 		8AC7950433D466A003C9E858 /* ReferralListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferralListItem.swift; sourceTree = "<group>"; };
 		8B15AB7BE4C79B970757FE38 /* JobSummaryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobSummaryCard.swift; sourceTree = "<group>"; };
+		8B4FC37F436F8E7F29FEC437 /* RouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterTests.swift; sourceTree = "<group>"; };
 		8CBE7934A47D54EDCD2F1838 /* JobDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailView.swift; sourceTree = "<group>"; };
 		8E74BFD6A88DD3830E74937F /* ReferralDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferralDraft.swift; sourceTree = "<group>"; };
 		8FABD58E82725E1A1767CE2C /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
@@ -170,8 +191,10 @@
 		9FB7348CBC6179FF1447BE62 /* DeleteJobUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteJobUseCase.swift; sourceTree = "<group>"; };
 		A2FE4086E30356B965EB83A6 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		A454B47EABC8EB3F503F0DBC /* StatusBreakdownBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBreakdownBar.swift; sourceTree = "<group>"; };
+		A54A2DE713F6BE85C1972192 /* ObserveUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveUseCaseTests.swift; sourceTree = "<group>"; };
 		A8D4CCF172762B70509D15B5 /* ReferralValidator+Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReferralValidator+Repository.swift"; sourceTree = "<group>"; };
 		AD661703A4539C0A0D8FCF25 /* ObserveReferralsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveReferralsUseCase.swift; sourceTree = "<group>"; };
+		AF39663A965C2C16EFF9BD97 /* ReferralFormViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferralFormViewModelTests.swift; sourceTree = "<group>"; };
 		AFBD25A05F2E730D7F4A8449 /* ReferralAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferralAnalytics.swift; sourceTree = "<group>"; };
 		B1ECB783DF9A904BCCB4AE0C /* CreateJobUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateJobUseCase.swift; sourceTree = "<group>"; };
 		B679E9CE51A9A72E0A79CC59 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
@@ -179,28 +202,43 @@
 		BA235B0DD068A5A45DAC9669 /* ReferralEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReferralEntity+Mapping.swift"; sourceTree = "<group>"; };
 		BA5C63FE4DB049F3EF90A7CB /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		BC668DE1DF4421F72D293A2E /* ReferralStatus+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReferralStatus+UI.swift"; sourceTree = "<group>"; };
+		C2C7F8CA9B14221426A8A60F /* ReferralUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferralUseCaseTests.swift; sourceTree = "<group>"; };
 		CBDF3DBC213F12F3E633AB97 /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
 		CF491FD821BCCB275E8CCC5E /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		D1801273C44C09BC1B4693C9 /* ReferralAnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferralAnalyticsTests.swift; sourceTree = "<group>"; };
 		D23EE6C7735894CCF255B09B /* UpdateReferralUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateReferralUseCase.swift; sourceTree = "<group>"; };
 		D4CA920EA5AD477D6CB54962 /* JobFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobFormView.swift; sourceTree = "<group>"; };
 		D5334910DBC22D680FCABFC4 /* DeleteReferralUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteReferralUseCase.swift; sourceTree = "<group>"; };
 		DB20EB62A0DD532F70B916B1 /* ObserveReferralUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveReferralUseCase.swift; sourceTree = "<group>"; };
 		DB649E2CD802FA8886445F20 /* JobReferralTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobReferralTrackerApp.swift; sourceTree = "<group>"; };
+		DC6E56DB8D963B8AD907A93F /* TestEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEnvironment.swift; sourceTree = "<group>"; };
 		DE37710856ED2D9D346F63F9 /* AppContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
+		DFB44400A1ECEDC0F1CF67FC /* CoreDataChangeObserverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataChangeObserverTests.swift; sourceTree = "<group>"; };
 		DFD7C9F3791439DCA54816D7 /* ValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationResult.swift; sourceTree = "<group>"; };
 		E0D640D632BAD9DF1599DF5D /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
 		E5267301EEE25E4B5D15561C /* AnalyticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsViewModel.swift; sourceTree = "<group>"; };
+		E52CA60EF9B32F433CEE39A1 /* ScreenViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenViewModelTests.swift; sourceTree = "<group>"; };
 		E734778FD73A3D7FB76DDCB3 /* StatusBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBadge.swift; sourceTree = "<group>"; };
 		ED8764E28263E84864C74955 /* LiveQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveQuery.swift; sourceTree = "<group>"; };
 		EE4AD43A206CA47031CE82BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1F83138C646721400A8553E /* JobDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailViewModel.swift; sourceTree = "<group>"; };
 		F36A61325025DDAAE190162C /* AppContainer+ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppContainer+ViewModelFactory.swift"; sourceTree = "<group>"; };
 		F93C33B0CE879CEC0610CF80 /* JobEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JobEntity+Mapping.swift"; sourceTree = "<group>"; };
+		FA148BBE779AB30C50A5EE88 /* LiveQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveQueryTests.swift; sourceTree = "<group>"; };
 		FC99C0985138513492E25243 /* ValidationIssue+Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValidationIssue+Message.swift"; sourceTree = "<group>"; };
 		FE8748B1951882A4B57935F9 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
+		FEC952CECC99A7D49E5B3EFD /* CoreDataReferralRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataReferralRepositoryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		0341A14AF9AFFCBCA741FBEB /* App */ = {
+			isa = PBXGroup;
+			children = (
+				472B5F40277F49434BFF3C99 /* AppBootstrapperTests.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		0D061CAEDAF740AF75FD0CA0 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,8 +382,11 @@
 		5DB20B016A18D79A7588F39F /* TestDoubles */ = {
 			isa = PBXGroup;
 			children = (
+				7C090122AC28C9AE2E6A3FB5 /* AsyncTestHelpers.swift */,
 				6504878EAFB059A2D840BBE3 /* Fixtures.swift */,
 				1C2D34F1B657FA5474E14564 /* InMemoryRepository.swift */,
+				8A2DE6ED222E1003A9CF1C61 /* ManualChangeObserver.swift */,
+				DC6E56DB8D963B8AD907A93F /* TestEnvironment.swift */,
 			);
 			path = TestDoubles;
 			sourceTree = "<group>";
@@ -395,6 +436,10 @@
 			children = (
 				7C9A7F799C01E77D01BFB648 /* JobUseCaseTests.swift */,
 				8768F44A8BD3D5F1CAEAA054 /* JobValidatorTests.swift */,
+				FA148BBE779AB30C50A5EE88 /* LiveQueryTests.swift */,
+				A54A2DE713F6BE85C1972192 /* ObserveUseCaseTests.swift */,
+				D1801273C44C09BC1B4693C9 /* ReferralAnalyticsTests.swift */,
+				C2C7F8CA9B14221426A8A60F /* ReferralUseCaseTests.swift */,
 				806BDE3E25E28C009ADD9F12 /* ReferralValidatorTests.swift */,
 			);
 			path = Domain;
@@ -403,7 +448,10 @@
 		81BA76CB8A04DD44557734B4 /* JobReferralTrackerTests */ = {
 			isa = PBXGroup;
 			children = (
+				0341A14AF9AFFCBCA741FBEB /* App */,
+				C66C5624B38DEA89984208E3 /* Data */,
 				77C976EB3EC7E8D1F2DF52DB /* Domain */,
+				BE42F652EB6183247FDF118D /* Presentation */,
 				5DB20B016A18D79A7588F39F /* TestDoubles */,
 			);
 			path = JobReferralTrackerTests;
@@ -484,6 +532,27 @@
 				8B15AB7BE4C79B970757FE38 /* JobSummaryCard.swift */,
 			);
 			path = JobList;
+			sourceTree = "<group>";
+		};
+		BE42F652EB6183247FDF118D /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				04E1891B5FE3D98DFAF5A7D9 /* JobFormViewModelTests.swift */,
+				AF39663A965C2C16EFF9BD97 /* ReferralFormViewModelTests.swift */,
+				8B4FC37F436F8E7F29FEC437 /* RouterTests.swift */,
+				E52CA60EF9B32F433CEE39A1 /* ScreenViewModelTests.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		C66C5624B38DEA89984208E3 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				DFB44400A1ECEDC0F1CF67FC /* CoreDataChangeObserverTests.swift */,
+				84DBE311864A522F82DACEA4 /* CoreDataJobRepositoryTests.swift */,
+				FEC952CECC99A7D49E5B3EFD /* CoreDataReferralRepositoryTests.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		CFB0A5D96CC89F68067F568B /* Services */ = {
@@ -747,11 +816,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E5FF968FF082C901CCEE73A /* AppBootstrapperTests.swift in Sources */,
+				F1D404ACA3D8C70E9032FE6A /* AsyncTestHelpers.swift in Sources */,
+				315E0832FFB608405677AF1D /* CoreDataChangeObserverTests.swift in Sources */,
+				7C3704374F2BB5B66508088D /* CoreDataJobRepositoryTests.swift in Sources */,
+				7B010DC579C866856385B978 /* CoreDataReferralRepositoryTests.swift in Sources */,
 				E67C9D2732B5C50889ED773F /* Fixtures.swift in Sources */,
 				CBE9844BC8C3D3BD6E209264 /* InMemoryRepository.swift in Sources */,
+				A8D4092C5C777AA2171B41ED /* JobFormViewModelTests.swift in Sources */,
 				526C92CF60EFBBA701DA7756 /* JobUseCaseTests.swift in Sources */,
 				472541FF178C8ECC8931C5C8 /* JobValidatorTests.swift in Sources */,
+				E8BF9BB1190624DD17B3357B /* LiveQueryTests.swift in Sources */,
+				675D362032EDA568EE1A6E4B /* ManualChangeObserver.swift in Sources */,
+				44C79E89A924255F38C4B268 /* ObserveUseCaseTests.swift in Sources */,
+				FD13ECB92B3CBDC366FED0B3 /* ReferralAnalyticsTests.swift in Sources */,
+				6FAFA06E0255198F5F5DD1E8 /* ReferralFormViewModelTests.swift in Sources */,
+				85A7100346A46BD7D62E0870 /* ReferralUseCaseTests.swift in Sources */,
 				A6711DDC49A1F57C80EF03A8 /* ReferralValidatorTests.swift in Sources */,
+				1AC37640A921C11046410A41 /* RouterTests.swift in Sources */,
+				E9AEFB191B84C5FA8FC9CEB2 /* ScreenViewModelTests.swift in Sources */,
+				6EFDBA0F8EBA6EB7E42DAF3B /* TestEnvironment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
