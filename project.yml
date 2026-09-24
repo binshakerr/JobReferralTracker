@@ -1,0 +1,58 @@
+name: JobReferralTracker
+options:
+  bundleIdPrefix: com.binshaker
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  JobReferralTracker:
+    type: application
+    platform: iOS
+    sources:
+      - path: JobReferralTracker
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.binshaker.JobReferralTracker
+        PRODUCT_NAME: JobReferralTracker
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Job Referral Tracker
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        DEVELOPMENT_ASSET_PATHS: "\"JobReferralTracker/Preview Content\""
+        ENABLE_PREVIEWS: YES
+        CODE_SIGN_STYLE: Automatic
+  JobReferralTrackerTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: JobReferralTrackerTests
+    dependencies:
+      - target: JobReferralTracker
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.binshaker.JobReferralTrackerTests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/JobReferralTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JobReferralTracker"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+schemes:
+  JobReferralTracker:
+    build:
+      targets:
+        JobReferralTracker: all
+        JobReferralTrackerTests: [test]
+    test:
+      targets:
+        - JobReferralTrackerTests
+      gatherCoverageData: true
