@@ -567,11 +567,11 @@ final class ReferralEntity: NSManagedObject {
     @NSManaged var createdAt: Date
     @NSManaged var updatedAt: Date
     @NSManaged var statusUpdatedAt: Date
-    @NSManaged var job: JobEntity
+    @NSManaged var job: JobEntity?     // required in the model; optional in Swift so a damaged record throws instead of crashing
 }
 ```
 
-Each subclass also has a typed `fetchRequest()` helper and a predicate helper such as `static func predicate(id: UUID) -> NSPredicate`.
+Each subclass also has `static func request() -> NSFetchRequest<…>` (named to avoid clashing with `NSManagedObject.fetchRequest()`), predicate helpers such as `predicate(id:)`/`predicate(jobID:)`, and `fetch(id:in:)`.
 
 ### 5.3 Mapping
 
@@ -602,14 +602,14 @@ final class CoreDataStack: @unchecked Sendable {
 
     init(storeType: StoreType = .persistent)        // in memory → store URL "/dev/null"
     func load() async throws                        // wraps loadPersistentStores; throws DataError.storeLoadFailed
-    func performBackgroundTask<T>(_ block: @escaping (NSManagedObjectContext) throws -> T) async throws -> T
+    func performBackgroundTask<T: Sendable>(_ block: @escaping @Sendable (NSManagedObjectContext) throws -> T) async throws -> T
 }
 ```
 
 Configuration:
 - `viewContext.automaticallyMergesChangesFromParent = true`
 - All contexts use `mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy`
-- `performBackgroundTask` creates a new background context (`container.newBackgroundContext()`), runs the block with `await context.perform { }` (iOS 15+ API), and saves only if `context.hasChanges`.
+- `performBackgroundTask` creates a new background context (`container.newBackgroundContext()`), runs the block with `await context.perform { }` (iOS 15+ API), and saves only if `context.hasChanges`. A failed save rolls back the context and throws `DataError.saveFailed`.
 - **All repository reads and writes run on background contexts.** The UI only ever receives domain value types, so the view context is not used for UI binding.
 
 ### 5.5 Change Observer
@@ -636,7 +636,7 @@ It listens for `.NSManagedObjectContextDidSave` and keeps only notifications who
 | Create referral | Fetch parent `JobEntity` by ID (or throw `jobNotFound`), insert `ReferralEntity`, `apply`. |
 | Update | Fetch by ID (or throw `…NotFound`), `apply`. |
 | Delete | Fetch by ID and `context.delete(_:)`. Referrals cascade through the model's delete rule. `NSBatchDeleteRequest` is **not** used because it skips delete rules and change notifications. |
-| Errors | Catch Core Data `NSError` and rethrow as `DomainError.persistenceFailure(message:)`. |
+| Errors | Every method body is wrapped in `mapToDomainErrors { }` (in `DataError.swift`), which passes `DomainError` through and wraps anything else in `DomainError.persistenceFailure(message:)`. |
 
 ## 6. Presentation Layer
 

@@ -6,7 +6,7 @@ final class CreateJobUseCaseTests: XCTestCase {
         let repository = InMemoryRepository()
         let ids = SequentialIDs(startingAt: 7)
         let useCase = CreateJobUseCase(repository: repository, validator: JobValidator(),
-                                       now: { Fixtures.date2 }, makeID: ids.make)
+                                       now: { Fixtures.date2 }, makeID: { ids.make() })
         var draft = JobDraft()
         draft.title = "  iOS Engineer "
         draft.company = " Acme\n"
