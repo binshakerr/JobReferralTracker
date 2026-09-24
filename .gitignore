@@ -1,62 +1,97 @@
+# ------------------------------------------------------------
+# macOS
+# ------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.DocumentRevisions-V100
+.TemporaryItems
+
+# ------------------------------------------------------------
 # Xcode
-#
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+# ------------------------------------------------------------
+## Build output
+build/
+DerivedData/
+*.xcresult
 
-## User settings
+## User-specific settings (shared schemes in xcshareddata/ stay tracked)
 xcuserdata/
+*.xcuserstate
+*.xcuserdatad
+*.xcscmblueprint
+*.xccheckout
 
-## Obj-C/Swift specific
+## Legacy / misc
+*.moved-aside
 *.hmap
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
 
-## App packaging
+## App packaging and symbols
 *.ipa
 *.dSYM.zip
 *.dSYM
+*.xcarchive
 
 ## Playgrounds
 timeline.xctimeline
 playground.xcworkspace
 
+# ------------------------------------------------------------
 # Swift Package Manager
-#
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
-# Package.pins
-# Package.resolved
-# *.xcodeproj
-#
-# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
-# hence it is not needed unless you have added a package configuration file to your project
-# .swiftpm
-
+# (Package.resolved stays tracked for reproducible builds)
+# ------------------------------------------------------------
 .build/
+.swiftpm/
 
-# CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-# Pods/
-#
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
-
-# Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
+# ------------------------------------------------------------
+# CocoaPods / Carthage (not used today; kept in case they are added)
+# ------------------------------------------------------------
+Pods/
 Carthage/Build/
+Carthage/Checkouts/
 
+# ------------------------------------------------------------
 # fastlane
-#
-# It is recommended to not store the screenshots in the git repo.
-# Instead, use fastlane to re-generate the screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/#source-control
-
+# ------------------------------------------------------------
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+
+# ------------------------------------------------------------
+# Code coverage and test artifacts
+# ------------------------------------------------------------
+*.gcno
+*.gcda
+*.profraw
+*.profdata
+test_output/
+
+# ------------------------------------------------------------
+# Editors and IDEs
+# ------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ------------------------------------------------------------
+# Local environment, secrets and tooling
+# ------------------------------------------------------------
+.env
+.env.*
+*.local
+.claude/settings.local.json
