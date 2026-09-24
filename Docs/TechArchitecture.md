@@ -84,6 +84,7 @@ JobReferralTracker/
 │   │   └── ReferralDraft.swift
 │   ├── Validation/
 │   │   ├── ValidationResult.swift         # ValidationIssue, ValidationResult<Field>
+│   │   ├── TextRules.swift                # shared required/length rules, String.trimmed
 │   │   ├── JobValidator.swift
 │   │   └── ReferralValidator.swift
 │   ├── Errors/
@@ -94,10 +95,12 @@ JobReferralTracker/
 │   │   └── DataChangeObserving.swift
 │   ├── Services/
 │   │   ├── ReferralAnalyticsCalculator.swift
+│   │   ├── ReferralFilter.swift
 │   │   └── LiveQuery.swift                # fetch + re-fetch on change → AsyncThrowingStream
 │   └── UseCases/
 │       ├── Jobs/                          # Observe/Create/Update/Delete
-│       ├── Referrals/                     # Observe/Add/Update/UpdateStatus/Delete
+│       ├── Dependencies.swift             # DateProvider, IDGenerator
+│       ├── Referrals/                     # Observe/Add/Update/UpdateStatus/Delete + shared validatedFields
 │       └── Analytics/                     # ObserveReferralAnalytics, ObserveAllReferrals
 │
 ├── Data/
@@ -143,13 +146,10 @@ JobReferralTracker/
     └── PreviewData.swift                  # sample jobs/referrals, AppContainer.preview()
 
 JobReferralTrackerTests/
-├── Domain/        JobValidatorTests, ReferralValidatorTests, CreateJobUseCaseTests,
-│                  AddReferralUseCaseTests, UpdateReferralStatusUseCaseTests,
-│                  ReferralAnalyticsCalculatorTests
+├── Domain/        JobValidatorTests, ReferralValidatorTests, JobUseCaseTests
 ├── Data/          CoreDataJobRepositoryTests, CoreDataReferralRepositoryTests
 ├── Presentation/  JobFormViewModelTests, ReferralFormViewModelTests, AnalyticsViewModelTests
-└── TestDoubles/   InMemoryJobRepository, InMemoryReferralRepository,
-                   ManualChangeObserver, FixedClock, Fixtures
+└── TestDoubles/   InMemoryRepository, Fixtures (dates, UUIDs, SequentialIDs)
 ```
 
 ## 4. Domain Layer
@@ -211,11 +211,12 @@ struct ReferralListItem: Identifiable, Hashable, Sendable {
 struct StatusBreakdown: Hashable, Sendable {
     let counts: [ReferralStatus: Int]      // every status present, 0 when none
 
+    init<S: Sequence>(statuses: S) where S.Element == ReferralStatus
+
     var total: Int { counts.values.reduce(0, +) }
     func count(for status: ReferralStatus) -> Int { counts[status, default: 0] }
 
-    static let empty = StatusBreakdown(counts: Dictionary(uniqueKeysWithValues:
-        ReferralStatus.allCases.map { ($0, 0) }))
+    static let empty = StatusBreakdown(statuses: [])
 }
 
 struct JobReferralBreakdown: Identifiable, Hashable, Sendable {
@@ -391,7 +392,7 @@ Re-fetching everything on each save is simple and fast enough for the PRD's targ
 Each use case is a small `struct` with one `execute` method. Dependencies (repositories, validators, clock, ID generator) are injected through the initializer.
 
 ```swift
-typealias Clock = @Sendable () -> Date          // injected; `{ Date() }` in the app
+typealias DateProvider = @Sendable () -> Date   // injected; `{ Date() }` in the app (`Clock` is taken by the standard library)
 typealias IDGenerator = @Sendable () -> UUID    // injected; `{ UUID() }` in the app
 ```
 
@@ -404,12 +405,14 @@ typealias IDGenerator = @Sendable () -> UUID    // injected; `{ UUID() }` in the
 | `DeleteJobUseCase` | `execute(id:) async throws` | Deletes job and its referrals. |
 | `ObserveReferralsUseCase` | `execute(jobID:) -> AsyncThrowingStream<[Referral], Error>` | Live referrals for Job Detail. |
 | `ObserveReferralUseCase` | `execute(id:) -> AsyncThrowingStream<ReferralListItem?, Error>` | Live referral (with job title/company) for Referral Detail. |
-| `AddReferralUseCase` | `execute(jobID:, draft:) async throws -> Referral` | Validate → job must exist → email unique in job → normalize → new `id`; `createdAt = updatedAt = statusUpdatedAt = now` → `create`. |
+| `AddReferralUseCase` | `execute(jobID:, draft:) async throws -> Referral` | Validate → email unique in job → normalize → new `id`; `createdAt = updatedAt = statusUpdatedAt = now` → `create` (the repository throws `jobNotFound` if the job is gone). |
 | `UpdateReferralUseCase` | `execute(id:, draft:) async throws -> Referral` | Validate → fetch → email unique (excluding self) → apply; `updatedAt = now`; `statusUpdatedAt = now` only if status changed → `update`. |
 | `UpdateReferralStatusUseCase` | `execute(id:, status:) async throws -> Referral` | Fetch → no-op if unchanged → set status, `updatedAt = statusUpdatedAt = now` → `update`. |
 | `DeleteReferralUseCase` | `execute(id:) async throws` | Deletes a referral. |
 | `ObserveReferralAnalyticsUseCase` | `execute() -> AsyncThrowingStream<ReferralAnalytics, Error>` | Fetches jobs + referrals, runs `ReferralAnalyticsCalculator`. |
 | `ObserveAllReferralsUseCase` | `execute() -> AsyncThrowingStream<[ReferralListItem], Error>` | Live unified list; filtering happens in the ViewModel with `ReferralFilter`. |
+
+`AddReferralUseCase` and `UpdateReferralUseCase` share `ReferralValidator.validatedFields(for:jobID:excludingReferralID:repository:)`. It runs the field rules, adds `.duplicateEmail` when the email is already used in the same job, and returns `NormalizedReferralFields`, or throws `DomainError.invalidReferral` with every issue found.
 
 Example — job creation (the logic covered by PRD TEST-1):
 
@@ -417,7 +420,7 @@ Example — job creation (the logic covered by PRD TEST-1):
 struct CreateJobUseCase: Sendable {
     let repository: JobRepository
     let validator: JobValidator
-    let now: Clock
+    let now: DateProvider
     let makeID: IDGenerator
 
     func execute(_ draft: JobDraft) async throws -> Job {
@@ -446,6 +449,7 @@ enum ReferralFilter: Hashable, Sendable {
     case all
     case status(ReferralStatus)
 
+    static let allCases: [ReferralFilter]                 // .all, then each status in pipeline order
     func apply(to items: [ReferralListItem]) -> [ReferralListItem]
     static func counts(in items: [ReferralListItem]) -> [ReferralFilter: Int]
 }
@@ -756,10 +760,10 @@ final class AppContainer: ViewModelFactory {
     private let jobRepository: JobRepository
     private let referralRepository: ReferralRepository
     private let liveQuery: LiveQuery
-    private let now: Clock
+    private let now: DateProvider
     private let makeID: IDGenerator
 
-    init(stack: CoreDataStack, now: @escaping Clock = { Date() }, makeID: @escaping IDGenerator = { UUID() }) {
+    init(stack: CoreDataStack, now: @escaping DateProvider = { Date() }, makeID: @escaping IDGenerator = { UUID() }) {
         jobRepository = CoreDataJobRepository(stack: stack)
         referralRepository = CoreDataReferralRepository(stack: stack)
         liveQuery = LiveQuery(changeObserver: CoreDataChangeObserver(stack: stack))
@@ -833,7 +837,7 @@ Framework: **XCTest** (iOS 16 compatible). Test target: `JobReferralTrackerTests
 | Level | What | How |
 |---|---|---|
 | Domain — validators | Required/trim/length rules, email regex, LinkedIn URL normalization (with and without scheme, subdomains, wrong host, empty path). | Pure functions, no doubles. |
-| Domain — use cases | **CreateJob** (valid saves with injected ID and date; invalid throws `invalidJob` and does not call the repository), **AddReferral** (default `pending`, duplicate email rejected, unknown job rejected), **UpdateReferralStatus** (`statusUpdatedAt` changes only on a real change), UpdateJob. | `InMemoryJobRepository` / `InMemoryReferralRepository` fakes (actors), `FixedClock`, sequential `UUID` generator. |
+| Domain — use cases | **CreateJob** (valid saves with injected ID and date; invalid throws `invalidJob` and does not call the repository), **AddReferral** (default `pending`, duplicate email rejected, unknown job rejected), **UpdateReferralStatus** (`statusUpdatedAt` changes only on a real change), UpdateJob. | `InMemoryRepository` fake (one actor implementing both repository protocols), fixed dates, `SequentialIDs` generator. |
 | Domain — analytics | Per-job counts, zero-filled statuses, overall totals, ordering, orphan referrals ignored, `ReferralFilter` counts. | Pure functions. |
 | Data — repositories | CRUD round-trips, summaries' referral counts, cascade delete, `emailExists` is case-insensitive and honors the exclusion, sort orders, change observer fires on save. | Real `CoreDataStack(storeType: .inMemory)`, one per test. |
 | Presentation — ViewModels | Form `canSave` and touched-field errors, duplicate-email merged inline, Analytics filter and counts, List state transitions. | Real use cases on fake repositories plus `ManualChangeObserver` to trigger live updates. |
